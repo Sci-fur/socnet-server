@@ -26,6 +26,10 @@ const io = new Server(server, {
 
 // Middleware
 app.use(cors(corsOptions));
+app.use((req, _res, next) => {
+  req.url = req.url.replace(/\/{2,}/g, "/");
+  next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
